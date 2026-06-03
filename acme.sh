@@ -255,10 +255,10 @@ green "已输入的域名:$ym" && sleep 1
 checkacmeca
 checkip
 if [[ $domainIP = $v4 ]]; then
-bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server buypass --insecure
+bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server zerossl --insecure
 fi
 if [[ $domainIP = $v6 ]]; then
-bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server buypass --listen-v6 --insecure
+bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server zerossl --listen-v6 --insecure
 fi
 installCA
 checktls
@@ -289,10 +289,10 @@ export CF_Key="$GAK"
 readp "请输入登录Cloudflare的注册邮箱地址：" CFemail
 export CF_Email="$CFemail"
 if [[ $domainIP = $v4 ]]; then
-bash ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${ym} -k ec-256 --server buypass --insecure
+bash ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${ym} -k ec-256 --server zerossl --insecure
 fi
 if [[ $domainIP = $v6 ]]; then
-bash ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${ym} -k ec-256 --server buypass --listen-v6 --insecure
+bash ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${ym} -k ec-256 --server zerossl --listen-v6 --insecure
 fi
 ;;
 2 )
@@ -301,10 +301,10 @@ export DP_Id="$DPID"
 readp "请复制腾讯云DNSPod的DP_Key：" DPKEY
 export DP_Key="$DPKEY"
 if [[ $domainIP = $v4 ]]; then
-bash ~/.acme.sh/acme.sh --issue --dns dns_dp -d ${ym} -k ec-256 --server buypass --insecure
+bash ~/.acme.sh/acme.sh --issue --dns dns_dp -d ${ym} -k ec-256 --server zerossl --insecure
 fi
 if [[ $domainIP = $v6 ]]; then
-bash ~/.acme.sh/acme.sh --issue --dns dns_dp -d ${ym} -k ec-256 --server buypass --listen-v6 --insecure
+bash ~/.acme.sh/acme.sh --issue --dns dns_dp -d ${ym} -k ec-256 --server zerossl --listen-v6 --insecure
 fi
 ;;
 3 )
@@ -313,10 +313,10 @@ export Ali_Key="$ALKEY"
 readp "请复制阿里云Aliyun的Ali_Secret：" ALSER
 export Ali_Secret="$ALSER"
 if [[ $domainIP = $v4 ]]; then
-bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server buypass --insecure
+bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server zerossl --insecure
 fi
 if [[ $domainIP = $v6 ]]; then
-bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server buypass --listen-v6 --insecure
+bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server zerossl --listen-v6 --insecure
 fi
 esac
 installCA

@@ -134,12 +134,10 @@ cd acme.sh-master >/dev/null 2>&1
 cd
 curl https://get.acme.sh | sh -s email=$Aemail
 if [[ -n $(~/.acme.sh/acme.sh -v 2>/dev/null) ]]; then
-  green "安装acme.sh证书申请程序成功"
-  bash ~/.acme.sh/acme.sh --upgrade --use-wget --auto-upgrade
-  # 【关键添加】注册 buypass 账户，否则后面 issue 会报错
-  ~/.acme.sh/acme.sh --register-account -m $Aemail --server buypass
+green "安装acme.sh证书申请程序成功"
+bash ~/.acme.sh/acme.sh --upgrade --use-wget --auto-upgrade
 else
-  red "安装acme.sh证书申请程序失败" && exit
+red "安装acme.sh证书申请程序失败" && exit
 fi
 }
 

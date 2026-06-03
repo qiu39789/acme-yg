@@ -134,10 +134,12 @@ cd acme.sh-master >/dev/null 2>&1
 cd
 curl https://get.acme.sh | sh -s email=$Aemail
 if [[ -n $(~/.acme.sh/acme.sh -v 2>/dev/null) ]]; then
-green "安装acme.sh证书申请程序成功"
-bash ~/.acme.sh/acme.sh --upgrade --use-wget --auto-upgrade
+  green "安装acme.sh证书申请程序成功"
+  bash ~/.acme.sh/acme.sh --upgrade --use-wget --auto-upgrade
+  # 【关键添加】注册 buypass 账户，否则后面 issue 会报错
+  ~/.acme.sh/acme.sh --register-account -m $Aemail --server buypass
 else
-red "安装acme.sh证书申请程序失败" && exit
+  red "安装acme.sh证书申请程序失败" && exit
 fi
 }
 
@@ -255,10 +257,10 @@ green "已输入的域名:$ym" && sleep 1
 checkacmeca
 checkip
 if [[ $domainIP = $v4 ]]; then
-bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server letsencrypt --insecure
+bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server buypass --insecure
 fi
 if [[ $domainIP = $v6 ]]; then
-bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server letsencrypt --listen-v6 --insecure
+bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server buypass --listen-v6 --insecure
 fi
 installCA
 checktls
@@ -289,10 +291,10 @@ export CF_Key="$GAK"
 readp "请输入登录Cloudflare的注册邮箱地址：" CFemail
 export CF_Email="$CFemail"
 if [[ $domainIP = $v4 ]]; then
-bash ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${ym} -k ec-256 --server letsencrypt --insecure
+bash ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${ym} -k ec-256 --server buypass --insecure
 fi
 if [[ $domainIP = $v6 ]]; then
-bash ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${ym} -k ec-256 --server letsencrypt --listen-v6 --insecure
+bash ~/.acme.sh/acme.sh --issue --dns dns_cf -d ${ym} -k ec-256 --server buypass --listen-v6 --insecure
 fi
 ;;
 2 )
@@ -301,10 +303,10 @@ export DP_Id="$DPID"
 readp "请复制腾讯云DNSPod的DP_Key：" DPKEY
 export DP_Key="$DPKEY"
 if [[ $domainIP = $v4 ]]; then
-bash ~/.acme.sh/acme.sh --issue --dns dns_dp -d ${ym} -k ec-256 --server letsencrypt --insecure
+bash ~/.acme.sh/acme.sh --issue --dns dns_dp -d ${ym} -k ec-256 --server buypass --insecure
 fi
 if [[ $domainIP = $v6 ]]; then
-bash ~/.acme.sh/acme.sh --issue --dns dns_dp -d ${ym} -k ec-256 --server letsencrypt --listen-v6 --insecure
+bash ~/.acme.sh/acme.sh --issue --dns dns_dp -d ${ym} -k ec-256 --server buypass --listen-v6 --insecure
 fi
 ;;
 3 )
@@ -313,10 +315,10 @@ export Ali_Key="$ALKEY"
 readp "请复制阿里云Aliyun的Ali_Secret：" ALSER
 export Ali_Secret="$ALSER"
 if [[ $domainIP = $v4 ]]; then
-bash ~/.acme.sh/acme.sh --issue --dns dns_ali -d ${ym} -k ec-256 --server letsencrypt --insecure
+bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server buypass --insecure
 fi
 if [[ $domainIP = $v6 ]]; then
-bash ~/.acme.sh/acme.sh --issue --dns dns_ali -d ${ym} -k ec-256 --server letsencrypt --listen-v6 --insecure
+bash ~/.acme.sh/acme.sh --issue -d ${ym} --standalone -k ec-256 --server buypass --listen-v6 --insecure
 fi
 esac
 installCA
